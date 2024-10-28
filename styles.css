@@ -49,4 +49,40 @@ input[type="submit"] {
 input[type="submit"]:hover {
   background-color: #009688; /* Efecto hover con un color diferente */
 }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #EAEAEA;
+  border: 2px solid #2D6A4F; /* Borde de la tabla ajustado para que coincida con el color del fondo */
+  border-radius: 10px;
+  display: block;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+th {
+  background-color: #2D6A4F; /* Fondo de los encabezados */
+  color: white;
+  padding: 15px;
+}
+
+td {
+  background-color: #BAD3C6;
+  color: #000000; /* Color del texto */
+  padding: 15px;
+}
+
+.back a {
+  background-color: #00695c;
+  padding: 15px 30px;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.back a:hover {
+  background-color: #009688;
+}
 
