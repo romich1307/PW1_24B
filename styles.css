@@ -27,4 +27,11 @@ body {
   text-align: center;
   margin-bottom: 25px;
 }
+select, input[type="text"] {
+  padding: 12px;
+  font-size: 16px;
+  border: 2px solid #78caa1;
+  border-radius: 8px;
+  width: 48%; /* Ajustado a un valor más razonable para alinearse uno al lado del otro */
+}
 
