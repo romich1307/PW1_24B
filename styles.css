@@ -20,4 +20,11 @@ body {
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
+.mytitle {
+  font-size: 45px; /* Tamaño más manejable */
+  font-weight: 600;
+  color: #1B5E20; /* Un verde más oscuro para el título */
+  text-align: center;
+  margin-bottom: 25px;
+}
 
