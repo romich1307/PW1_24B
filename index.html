@@ -7,11 +7,24 @@
     <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400;500;600&display=swap" rel="stylesheet">
     <title>Búsquedas de Universidades</title>
 </head>
-<body>
+ <body>
     <div class="mytitle">
        <b>Búsqueda de universidades licenciadas</b>
     </div>
-</body>
+    <div class="site-wrapper">
+      <form class="search-form" action="/cgi-bin/consult.pl" method="get">
+        <label for="kind">Buscar por:</label>
+        <select name="kind">
+           <option value="nombre_universidad">Nombre de la Universidad</option>
+           <option value="periodo">Periodo de Licenciamiento</option>
+           <option value="departamento_local">Departamento Local</option>
+           <option value="denominacion_programa">Denominación del Programa</option>
+        </select>
+        <input type="text" name="keyword" placeholder="Ingrese palabra clave">
+        <input type="submit" value="Buscar">
+      </form>
+    </div>
+ </body>
 </html>
 
 
