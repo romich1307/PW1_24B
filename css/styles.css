@@ -1,0 +1,88 @@
+body {
+  font-family: 'DynaPuff', cursive;
+  background-color: #e0f7fa; /* Ajuste a un fondo más claro */
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+}
+
+.site-wrapper {
+  background-color: #2D6A4F;
+  padding: 40px;
+  border-radius: 20px;
+  max-width: 900px;
+  width: 100%; /* Cambiado de 570% a 100% para un ajuste más apropiado */
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+.mytitle {
+  font-size: 45px; /* Tamaño más manejable */
+  font-weight: 600;
+  color: #1B5E20; /* Un verde más oscuro para el título */
+  text-align: center;
+  margin-bottom: 25px;
+}
+select, input[type="text"] {
+  padding: 12px;
+  font-size: 16px;
+  border: 2px solid #78caa1;
+  border-radius: 8px;
+  width: 48%; /* Ajustado a un valor más razonable para alinearse uno al lado del otro */
+}
+input[type="submit"] {
+  padding: 12px 25px;
+  background-color: #00695c; /* Verde más oscuro para mayor contraste */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+  width: auto; /* Cambiado a auto para evitar que ocupe todo el ancho */
+}
+
+input[type="submit"]:hover {
+  background-color: #009688; /* Efecto hover con un color diferente */
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #EAEAEA;
+  border: 2px solid #2D6A4F; /* Borde de la tabla ajustado para que coincida con el color del fondo */
+  border-radius: 10px;
+  display: block;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+th {
+  background-color: #2D6A4F; /* Fondo de los encabezados */
+  color: white;
+  padding: 15px;
+}
+
+td {
+  background-color: #BAD3C6;
+  color: #000000; /* Color del texto */
+  padding: 15px;
+}
+
+.back a {
+  background-color: #00695c;
+  padding: 15px 30px;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.back a:hover {
+  background-color: #009688;
+}
+
