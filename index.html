@@ -1,30 +1,34 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400;500;600&display=swap" rel="stylesheet">
-    <title>Búsquedas de Universidades</title>
-</head>
- <body>
+    <title>Consulta de Universidades</title>
+  </head>
+  <body>
+    <!-- Título movido fuera del cuadro -->
     <div class="mytitle">
-       <b>Búsqueda de universidades licenciadas</b>
+      <b>Búsqueda de universidades licenciadas</b>
     </div>
+
+    <!-- Formulario de búsqueda dentro del cuadro blanco -->
     <div class="site-wrapper">
       <form class="search-form" action="/cgi-bin/consult.pl" method="get">
         <label for="kind">Buscar por:</label>
+        <div class="form-fields">
         <select name="kind">
-           <option value="nombre_universidad">Nombre de la Universidad</option>
-           <option value="periodo">Periodo de Licenciamiento</option>
-           <option value="departamento_local">Departamento Local</option>
-           <option value="denominacion_programa">Denominación del Programa</option>
+            <option value="nombre_universidad">Nombre de la Universidad</option>
+            <option value="periodo">Periodo de Licenciamiento</option>
+            <option value="departamento_local">Departamento Local</option>
+            <option value="denominacion_programa">Denominación del Programa</option>
         </select>
         <input type="text" name="keyword" placeholder="Ingrese palabra clave">
         <input type="submit" value="Buscar">
+      </div>
       </form>
     </div>
- </body>
+  </body>
 </html>
-
 
