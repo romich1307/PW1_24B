@@ -50,6 +50,15 @@ select, input[type="text"] {
   border-radius: 8px;
   width: 48%; /* Ajustado a un valor más razonable para alinearse uno al lado del otro */
 }
+select {
+  background-color: #298A72; /* Fondo verde del desplegable */
+  color: white; /* Texto blanco */
+}
+
+input[type="text"] {
+  background-color: #f9f9f9;
+  font-family: 'DynaPuff', cursive;
+}
 input[type="submit"] {
   padding: 12px 25px;
   background-color: #00695c; /* Verde más oscuro para mayor contraste */
