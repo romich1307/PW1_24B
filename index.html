@@ -1,34 +1,55 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
+    <title>Mi Wikipedia</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400;500;600&display=swap" rel="stylesheet">
-    <title>Consulta de Universidades</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+    <link rel='stylesheet' href='css/myStyle.css'>
+    <script src='/js/main.js'></script>
+    <script src='/js/myScript.js'></script>
   </head>
-  <body>
-    <!-- Título movido fuera del cuadro -->
-    <div class="mytitle">
-      <b>Búsqueda de universidades licenciadas</b>
-    </div>
 
-    <!-- Formulario de búsqueda dentro del cuadro blanco -->
-    <div class="site-wrapper">
-      <form class="search-form" action="/cgi-bin/consult.pl" method="get">
-        <label for="kind">Buscar por:</label>
-        <div class="form-fields">
-        <select name="kind">
-            <option value="nombre_universidad">Nombre de la Universidad</option>
-            <option value="periodo">Periodo de Licenciamiento</option>
-            <option value="departamento_local">Departamento Local</option>
-            <option value="denominacion_programa">Denominación del Programa</option>
-        </select>
-        <input type="text" name="keyword" placeholder="Ingrese palabra clave">
-        <input type="submit" value="Buscar">
+  <body>
+    <div class='header'>
+      <div class="title-container">
+        <h1>Proyecto Final</h1>
+        <h2>Mi Wikipedia</h2>
       </div>
-      </form>
+      <img src="img/logo1.png" alt="Logo Universidad" class="logo">
+    </div>
+    <div id='menu'class='topnav'>
+      <p onclick='showWelcome()'>Inicio</p>
+      <p onclick='showLogin()'>Iniciar Sesion</p>
+      <p onclick='showCreateAccount()' class='rightAlign'>Crear Cuenta</p>
+    </div>
+    <div class='row'>
+      <div class='leftcolumn'>
+        <div class='card' id='main'>
+        </div>
+      </div>
+      <div class='rightcolumn'>
+        <div class='card'>
+          <h2>Sobre el Autor</h2>
+          <p></p>
+          <div></div>
+          <p>Aquí encontrarás, mis artículos sobre los temás que más me gustan</p>
+          <br>
+          <strong><h2>Trabajo realizado por:</h2></strong>
+            <p>Romina Giuliana Camargo Hilachoque</p>
+          <p>Tania Luz Ayque Puraca</p>
+          
+        </div>
+      </div>
+    </div>
+    <div class='footer'>
+      <p>&copy; 2024 Mi Wikipedia. Todos los derechos reservados.</p>
+      <p class=owner id='userName' class='rightAlign'></p>
     </div>
   </body>
 </html>
 
+
+
+  </body>
+</html>

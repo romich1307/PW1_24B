@@ -1,62 +1,77 @@
-# Usar la imagen base de Ubuntu 20.04
-FROM ubuntu:20.04
+# Usa una imagen base de Ubuntu
+FROM ubuntu:22.04
 
-# Evitar interacciones durante la instalación
-ENV DEBIAN_FRONTEND=noninteractive
+# Actualizar e instalar dependencias necesarias
+RUN apt-get update && apt-get upgrade -y && DEBIAN_FRONTEND="noninteractive" apt-get install -y \
+    apache2 \
+    perl \
+    mariadb-client \
+    libdbi-perl \
+    libcgi-pm-perl \
+    make \
+    gcc \
+    libmariadb-dev \
+    cpanminus \
+    libapache2-mod-perl2 \
+    libapache2-mod-fcgid \
+    libcgi-session-perl \
+    curl \
+    nano \
+    apache2-utils \
+    apparmor-utils \
+    && rm -rf /var/lib/apt/lists/* \
+    && cpanm --notest DBD::MariaDB \
+    && a2enmod cgid
+    
+# Configuración de Apache con ajustes para CGI
+RUN echo '<VirtualHost *:80>\n\
+    ServerName localhost\n\
+    ServerAdmin webmaster@localhost\n\
+    DocumentRoot /var/www/html\n\
+    ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/\n\
+    <Directory "/usr/lib/cgi-bin">\n\
+        Options +ExecCGI\n\
+        AddHandler cgi-script .pl\n\
+        Require all granted\n\
+    </Directory>\n\
+    <Directory "/var/www/html">\n\
+        AllowOverride All\n\
+    </Directory>\n\
+</VirtualHost>' > /etc/apache2/sites-available/000-default.conf
 
-# Actualizar e instalar Apache, Perl, y dos2unix con las dependencias necesarias
-RUN apt-get update && \
-    apt-get install -y apache2 perl libcgi-pm-perl dos2unix && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+# Agregar después de la configuración del VirtualHost
+RUN echo '<FilesMatch "\.(js|css|html)$">\n\
+    Header set Cache-Control "no-cache, no-store, must-revalidate"\n\
+    Header set Pragma "no-cache"\n\
+    Header set Expires 0\n\
+</FilesMatch>' >> /etc/apache2/apache2.conf
+RUN echo 'Header set Access-Control-Allow-Origin "*"' >> /etc/apache2/apache2.conf
+# Habilitar el módulo headers
+RUN a2enmod headers
 
-# Deshabilitar cgid y habilitar cgi, asegurar mpm_prefork
-RUN a2dismod mpm_event mpm_worker cgid && \
-    a2enmod mpm_prefork cgi
+# Copiar archivos del proyecto
+COPY ./cgi-bin/ /usr/lib/cgi-bin/
+COPY ./*.html /var/www/html/
+COPY ./css /var/www/html/css
+COPY ./js /var/www/html/js
+COPY img/ /var/www/html/img/
 
-# Crear directorio para los scripts CGI si no existe
-RUN mkdir -p /usr/lib/cgi-bin/ /var/www/html/css /var/www/html/csv
+# Asegurar permisos correctos para scripts CGI y directorios
+RUN chmod -R 755 /usr/lib/cgi-bin && \
+    chmod +x /usr/lib/cgi-bin/*.pl && \
+    chown -R www-data:www-data /usr/lib/cgi-bin && \
+    chown -R www-data:www-data /var/www/html
 
-# Copiar archivos HTML y otros recursos al contenedor Docker
-COPY css/ /var/www/html/css/
-COPY csv/universidades.csv /var/www/html/csv/
-COPY cgi-bin/consult.pl /usr/lib/cgi-bin/
-COPY *.html /var/www/html/
+# Configurar AppArmor para permitir la ejecución de scripts CGI
+RUN ln -s /bin/true /etc/apparmor.d/usr.sbin.apache2
 
-# Copiar scripts CGI al directorio correcto del contenedor Docker y configurar permisos
-COPY cgi-bin/*.pl /usr/lib/cgi-bin/
-RUN chmod 755 /usr/lib/cgi-bin/*.pl && \
-    chown -R www-data:www-data /usr/lib/cgi-bin/ && \
-    chmod 644 /var/www/html/csv/universidades.csv && \
-    chown www-data:www-data /var/www/html/csv/universidades.csv && \
-    dos2unix /usr/lib/cgi-bin/*.pl
+# Comando adicional para listar permisos (solo para depuración)
+RUN ls -l /usr/lib/cgi-bin && ls -l /var/www/html
+RUN echo "AddType application/javascript .js" >> /etc/apache2/apache2.conf
 
-# Configurar Apache para permitir CGI
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
-RUN echo "\
-<Directory \"/usr/lib/cgi-bin\">\n\
-    AllowOverride None\n\
-    Options +ExecCGI\n\
-    AddHandler cgi-script .cgi .pl\n\
-    Require all granted\n\
-</Directory>\n" >> /etc/apache2/apache2.conf
-
-# Configurar logs para depuración
-RUN echo "LogLevel debug" >> /etc/apache2/apache2.conf
-
-# Ajustes de Prefork MPM
-RUN echo "\
-<IfModule mpm_prefork_module>\n\
-    StartServers             5\n\
-    MinSpareServers          5\n\
-    MaxSpareServers         10\n\
-    MaxRequestWorkers      150\n\
-    MaxConnectionsPerChild   0\n\
-</IfModule>\n" >> /etc/apache2/mods-enabled/mpm_prefork.conf
-
-# Exponer el puerto 80
+# Exponer el puerto de Apache
 EXPOSE 80
 
-# Comando para iniciar Apache
+# Iniciar Apache en primer plano cuando el contenedor se ejecute
 CMD ["apache2ctl", "-D", "FOREGROUND"]
 
